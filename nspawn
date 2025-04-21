@@ -186,7 +186,7 @@ init_noverification() {
     fi
 }
 
-OPTS="$(getopt -o 'vhlsi:' -l 'version,help,list,skip-verify,init:')"
+OPTS="$(getopt -o 'vhlsi:' -l 'version,help,list,skip-verify,init:' -- "$@")"
 eval set -- "${OPTS}"
 
 while true; do
