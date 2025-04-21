@@ -63,15 +63,15 @@ help() {
     echo "Wrapper around systemd-machined and https://nspawn.org"
     echo
     echo "Commands:"
-    echo "  -i/--init          \tInitializes an image for systemd-machined with the following parameters: <distribution>/<release>/<type>"
-    echo "  -l/--list          \tLists all available images"
-    echo "  -h/--help          \tPrints this help message"
-    echo "  -v/--version       \tPrints version info"
+    echo "  -i/--init          Initializes an image for systemd-machined with the following parameters: <distribution>/<release>/<type>"
+    echo "  -l/--list          Lists all available images"
+    echo "  -h/--help          Prints this help message"
+    echo "  -v/--version       Prints version info"
     echo
     echo "Parameters:"
-    echo "  <distribution>\tCheck ${program} -l/--list for more information and which distribution names to use."
-    echo "  <release>     \tThe release of the distribution"
-    echo "  <type>        \tOne out of (raw,tar)"
+    echo "  <distribution>  Check ${program} -l/--list for more information and which distribution names to use."
+    echo "  <release>       The release of the distribution"
+    echo "  <type>          One out of (raw,tar)"
 }
 
 if [ "${#}" -eq 0 ]; then
@@ -112,7 +112,7 @@ check_pubring() {
 
 list() {
     echo
-    echo "\t${LISTURL}"
+    echo "${LISTURL}"
     echo
     curl "${LISTURL}"
 }
