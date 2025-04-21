@@ -64,6 +64,7 @@ help() {
     echo
     echo "Commands:"
     echo "  -i/--init          Initializes an image for systemd-machined with the following parameters: <distribution>/<release>/<type>"
+    echo "  -s/--skip-verification    Skip GPG key verification"
     echo "  -l/--list          Lists all available images"
     echo "  -h/--help          Prints this help message"
     echo "  -v/--version       Prints version info"
@@ -74,7 +75,7 @@ help() {
     echo "  <type>          One out of (raw,tar)"
 }
 
-if [ "${#}" -eq 0 ]; then
+if [ "$#" -eq 0 ]; then
     help
     exit
 fi
@@ -203,12 +204,12 @@ while true; do
             list
             shift
             ;;
-        '-s' | '--skip-verify')
-            SKIP_VERIFY=1
+        '-s' | '--skip-verification')
+            SKIP_VERIFICATION=1
             shift
             ;;
         '-i' | '--init')
-            if [ "${SKIP_VERIFY:-}" = 1 ]; then
+            if [ "${SKIP_VERIFICATION:-}" = 1 ]; then
                 init "$2"
             else
                 init_noverification "$2"
