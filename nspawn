@@ -210,9 +210,9 @@ while true; do
             ;;
         '-i' | '--init')
             if [ "${SKIP_VERIFICATION:-}" = 1 ]; then
-                init "$2"
-            else
                 init_noverification "$2"
+            else
+                init "$2"
             fi
             shift 2
             ;;
