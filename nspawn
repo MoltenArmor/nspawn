@@ -160,6 +160,7 @@ init_noverification() {
     image_url="${BASEURL}/${distribution}/${release}/${type}/image.${type}.xz"
     output_image="${distribution}-${release}-${type}"
     check_image_location="$(curl -o /dev/null -sIw '%{http_code}' "${image_url}")"
+    tmpfile="$(mktemp)"
     if [ "${check_image_location}" -eq 200 ]; then
         if machinectl show-image "${output_image}" > /dev/null 2>&1; then
             echo "Machine ${output_image} already exists. Details:"
@@ -170,7 +171,9 @@ init_noverification() {
         fi
 
         escalate_privilege "Pulling the image via machinectl-${type}..."
-        if importctl -m --verify=no pull-"${type}" "${image_url}" "${output_image}" 2> /dev/null; then
+        curl "${image_url}" -o "${tmpfile}" 
+        if importctl -m --verify=no import-"${type}" "${tmpfile}" "${output_image}" 2> /dev/null; then
+            rm -f "${tmpfile}"
             echo
             echo "Removing read-only flag if present from image ${output_image}..."
             if machinectl read-only "${output_image}" false > /dev/null 2>&1; then
